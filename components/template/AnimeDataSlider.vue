@@ -57,8 +57,8 @@
   </div>
 </template>
 <script>
-import animeService from "@/services/anime.service";
-import episodeService from "@/services/episode.service";
+// import animeService from "@/services/anime.service";
+// import episodeService from "@/services/episode.service";
 export default {
   data() {
     return {

@@ -1,13 +1,13 @@
 <template>
   <v-app dark>
-    <tool-bar :offsetTop="offsetTop" />
-    <v-content>
-      <div v-scroll="onScroll">
+    <v-container wrap>
+      <tool-bar :offsetTop="offsetTop" />
+      <v-content v-scroll="onScroll">
         <div class="landing-content">
-          <nuxt/>
+          <nuxt />
         </div>
-      </div>
-    </v-content>
+      </v-content>
+    </v-container>
 
     <!-- <v-footer
       :fixed="fixed"
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import ToolBar from '@/components/ToolBar'
+import ToolBar from "@/components/main/ToolBar";
 export default {
   data() {
     return {
-            offsetTop: 0,
-    }
+      offsetTop: 0
+    };
   },
   components: {
     ToolBar

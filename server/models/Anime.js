@@ -1,29 +1,32 @@
 const mongoose = require('mongoose')
 
 const animeSchema = new mongoose.Schema({
-    viewId: {type: String, required: true, index: { unique: true }},
-    title: {type: String, required: true, index: { unique: true }},
-    jp_title: String,
-    en_title: String,
-    cn_title: String,
-    content: String,
+    anime_id: Number,
+    title: Object,
+    description: String,
     type: String,
     status: String,
     source: String,
     rating: String,
-    audios: String,
-    subtitles: String,
-    created_at: Number,
-    updated_at: Number
+    audio: Array,
+    subtitle: Array,
+    view_id: {
+        type: String,
+        required: true,
+        index: { unique: true }
+    },
+    create_at: Number,
+    update_at: Number
+
 })
 
 animeSchema.pre('save', function (next) {
-    var anime = this;
-    anime.created_at = Date.now()
-    anime.updated_at = Date.now()
+    var anime = this
+    anime.create_at = Date.now()
+    anime.update_at = Date.now()
     next()
 })
 
-const Anime = mongoose.model('Anime', animeSchema, 'animes')
+const Anime = mongoose.model('Anime', animeSchema, 'anime')
 
 module.exports = Anime

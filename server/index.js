@@ -1,24 +1,15 @@
-require('dotenv').config();
-const { Nuxt, Builder} = require('nuxt')
-const bodyParser = require('body-parser')
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-var cors = require('cors')
+require('dotenv').config()
+const http = require('http')
+const app = require('./app')(__dirname)
+const server = http.createServer(app)
 
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true})
+require('./socket')(server)
+const { Nuxt, Builder } = require('nuxt')
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-
-// app.use(cors({
-//     origin: 'http://yourapp.com'
-//   }))
-
-require('./routes')(app)
-
+// Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
+
 
 async function start() {
   // Init Nuxt.js
@@ -36,13 +27,10 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
+  // Socket
   // Listen the server
-  app.listen(port, host)
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  })
+  server.listen(port, host)
+  console.log(`Server is running on http://${host}:${port}`)
 }
 start()
 
@@ -50,3 +38,4 @@ start()
 // const nuxt = new Nuxt(config)
 // const { host, port } = nuxt.options.server
 // app.listen(port, host)
+// console.log(`Server is running on http://${host}:${port}`)

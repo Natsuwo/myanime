@@ -1,24 +1,40 @@
 const mongoose = require('mongoose')
 
 const episodeSchema = new mongoose.Schema({
-    playId: { type: String, required: true, index: { unique: true }},
-    source: String,
-    thumbnail: String,
+    anime_id: {
+        type: Number,
+        required: true,
+        index: { unique: true }
+    },
+    episode_id: {
+        type: Number,
+        required: true,
+        index: { unique: true }
+    },
+    anime_title: String,
+    title: Object,
     number: Number,
+    thumbnail: String,
+    description: String,
+    source: String,
+    view_id: {
+        type: String,
+        required: true,
+        index: { unique: true }
+    },
     views: Number,
-    animeId: String,
-    serverId: Number,
-    created_at: Number,
-    updated_at: Number
+    create_at: Number,
+    update_at: Number
+
 })
 
 episodeSchema.pre('save', function (next) {
-    var episode = this;
-    episode.created_at = Date.now()
-    episode.updated_at = Date.now()
+    var anime = this
+    anime.create_at = Date.now()
+    anime.update_at = Date.now()
     next()
 })
 
-const Episode = mongoose.model('Episode', episodeSchema, 'episodes')
+const Episode = mongoose.model('Episode', episodeSchema, 'episode')
 
 module.exports = Episode

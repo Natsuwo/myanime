@@ -2,6 +2,6 @@ import Api from './Api'
 
 export default {
    async index() {
-        return (await Api().get('anime')).data
+        return (await Api().post('/anime/index')).data
     }
 }

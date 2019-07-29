@@ -49,14 +49,27 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-  ],
+  modules: [],
 
   /*
   ** Build configuration
   */
   build: {
     transpile: ['vuetify/lib'],
+    optimization: {
+      splitChunks: {
+        name: true,
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+    extractCSS: true,
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
@@ -67,7 +80,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
     }
   }
 }

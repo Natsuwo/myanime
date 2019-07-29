@@ -2,6 +2,6 @@ import Api from './Api'
 
 export default {
    async index() {
-        return (await Api().get('episode')).data
+        return (await Api().post('/episode/index')).data
     }
 }
